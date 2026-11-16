@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Patient Registration &amp; Management - Lumina Medical</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-low": "#191c1e",
+                      "surface-container-high": "#272a2c",
+                      "on-error-container": "#ffdad6",
+                      "outline": "#85948f",
+                      "on-surface-variant": "#bacac5",
+                      "surface-container-highest": "#323537",
+                      "tertiary-fixed-dim": "#ffb955",
+                      "surface-dim": "#101415",
+                      "on-primary-container": "#004f44",
+                      "on-secondary-fixed": "#0f1c2c",
+                      "secondary-fixed-dim": "#bac7dd",
+                      "surface-container": "#1d2022",
+                      "surface-tint": "#38ddc4",
+                      "primary": "#44e5cc",
+                      "secondary-fixed": "#d6e3fa",
+                      "on-primary-fixed-variant": "#005046",
+                      "on-tertiary-container": "#613e00",
+                      "tertiary-fixed": "#ffddb4",
+                      "surface-bright": "#363a3b",
+                      "tertiary-container": "#f1a31f",
+                      "inverse-on-surface": "#2d3133",
+                      "on-secondary-container": "#a8b6cb",
+                      "secondary": "#bac7dd",
+                      "on-error": "#690005",
+                      "on-tertiary-fixed": "#291800",
+                      "on-tertiary-fixed-variant": "#633f00",
+                      "error": "#ffb4ab",
+                      "surface-container-lowest": "#0b0f10",
+                      "error-container": "#93000a",
+                      "on-secondary-fixed-variant": "#3a485a",
+                      "secondary-container": "#3a485a",
+                      "outline-variant": "#3b4a46",
+                      "on-background": "#e0e3e5",
+                      "primary-fixed": "#5ffae0",
+                      "on-secondary": "#243142",
+                      "background": "#101415",
+                      "primary-fixed-dim": "#38ddc4",
+                      "on-tertiary": "#452b00",
+                      "primary-container": "#00c9b1",
+                      "surface": "#101415",
+                      "on-surface": "#e0e3e5",
+                      "tertiary": "#ffc474",
+                      "on-primary": "#003730",
+                      "inverse-primary": "#006b5d",
+                      "inverse-surface": "#e0e3e5",
+                      "on-primary-fixed": "#00201b",
+                      "surface-variant": "#323537"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "1.5rem",
+                      "unit": "4px",
+                      "section-gap": "2.5rem",
+                      "sidebar-width": "280px",
+                      "stack-gap": "1rem",
+                      "container-padding": "2rem"
+              },
+              "fontFamily": {
+                      "headline-md": ["Playfair Display"],
+                      "title-lg": ["DM Sans"],
+                      "headline-lg": ["Playfair Display"],
+                      "body-lg": ["DM Sans"],
+                      "body-md": ["DM Sans"],
+                      "caption": ["DM Sans"],
+                      "label-md": ["DM Sans"],
+                      "display-lg": ["Playfair Display"],
+                      "headline-lg-mobile": ["Playfair Display"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                      "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "caption": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .glass-card {
+            background-color: rgba(29, 32, 34, 0.7); /* surface-container with opacity */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 74, 70, 0.4); /* outline-variant */
+        }
+        
+        .floating-input-wrapper {
+            position: relative;
+            margin-top: 0.5rem;
+        }
+        
+        .floating-input {
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid #85948f; /* outline */
+            border-radius: 0.25rem;
+            padding: 1.25rem 1rem 0.5rem 1rem;
+            color: #e0e3e5; /* on-surface */
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .floating-input:focus {
+            border: 2px solid #44e5cc; /* primary */
+        }
+        
+        .floating-label {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #bacac5; /* on-surface-variant */
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            pointer-events: none;
+            transition: all 0.2s ease-in-out;
+            background-color: transparent;
+        }
+        
+        .floating-input:focus ~ .floating-label,
+        .floating-input:not(:placeholder-shown) ~ .floating-label {
+            top: 0.5rem;
+            font-size: 11px;
+            font-weight: 700;
+            color: #44e5cc; /* primary */
+        }
+        
+        .floating-input:not(:focus):not(:placeholder-shown) ~ .floating-label {
+            color: #bacac5;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen">
+<aside class="bg-surface-container-low dark:bg-surface-container-low fixed left-0 top-0 h-screen w-[280px] border-r border-white/10 dark:border-outline-variant/10 flex flex-col py-6 z-40 hidden md:flex">
+<div class="px-6 mb-8 flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">local_hospital</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md text-white">Lumina Health</h1>
+<p class="text-caption font-caption text-on-surface-variant">Admin Portal</p>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto flex flex-col gap-1">
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/clinical_reporting_dashboard/code.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-primary bg-primary/10 border-l-4 border-primary px-4 py-3 transition-all duration-200 ease-in-out" href="/static/patient_management/code.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">patient_list</span>
+<span class="text-label-md font-label-md">Patients</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/doctor_directory_management/code.html">
+<span class="material-symbols-outlined">medical_services</span>
+<span class="text-label-md font-label-md">Doctors</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/appointment_scheduling_view/code.html">
+<span class="material-symbols-outlined">event_note</span>
+<span class="text-label-md font-label-md">Appointments</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/patient_electronic_health_records/code.html">
+<span class="material-symbols-outlined">description</span>
+<span class="text-label-md font-label-md">Records</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/billing_insurance_management/code.html">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-label-md font-label-md">Billing</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/pharmacy_stock_inventory/code.html">
+<span class="material-symbols-outlined">medication</span>
+<span class="text-label-md font-label-md">Pharmacy</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/laboratory_services_results/code.html">
+<span class="material-symbols-outlined">biotech</span>
+<span class="text-label-md font-label-md">Laboratory</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/facility_bed_management/code.html">
+<span class="material-symbols-outlined">bed</span>
+<span class="text-label-md font-label-md">Rooms</span>
+</a>
+</nav>
+<div class="mt-auto px-4 flex flex-col gap-1 border-t border-white/10 pt-4">
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</div>
+</aside>
+<div class="flex-1 flex flex-col ml-0 md:ml-[280px] min-h-screen">
+<header class="bg-white/90 dark:bg-surface-container-high/90 docked full-width top-0 sticky z-50 backdrop-blur-xl border-b border-white/20 dark:border-outline-variant/20 shadow-sm flex justify-between items-center w-full px-gutter h-16">
+<div class="flex items-center gap-4">
+<span class="text-title-lg font-title-lg font-bold text-primary dark:text-primary-fixed">Lumina Medical</span>
+<div class="hidden md:flex bg-surface-container rounded-full px-4 py-1.5 items-center gap-2 border border-outline-variant/50">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md font-body-md text-on-surface placeholder:text-on-surface-variant w-64 outline-none" placeholder="Search patients, records..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-primary/10 transition-colors scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-primary/10 transition-colors scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-px h-6 bg-outline-variant mx-2"></div>
+<button class="text-label-md font-label-md text-primary font-bold hover:bg-primary/10 transition-colors px-4 py-2 rounded-lg scale-95 active:scale-90 transition-transform flex items-center gap-2">
+                    Logout
+                    <span class="material-symbols-outlined text-[18px]">logout</span>
+</button>
+<img alt="Chief Medical Officer Profile" class="w-10 h-10 rounded-full border border-outline-variant object-cover" data-alt="A professional headshot of a confident Chief Medical Officer wearing a white lab coat over dark scrubs. The lighting is bright and clinical, set against a soft, out-of-focus modern hospital hallway background. The mood is authoritative yet approachable, fitting a high-end medical application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDsxrhwatyLqLe5ayUfD6KhV7nXVa7KV8RWCpEq34n0btPbVxSDEQ1Xtb4tyAyto8--ovPzAVjd8IXwFbckqd907JSny5ba8ehEzoMGdtdwR_ueiQevXcZFzWt4k0BjqADoOQ31FEL5DxqvB2RNcRAnFXuhvg-M0rlKHYieZT5DOh40WKF69FWxipEboOUaWyhfXN5SsI3eVsn1OpbwdHk7ve9ippA6efgHbY7YPS0enG400UhZsTT9xnbXF0J-a4FZgnZOgPJQeJQ"/>
+</div>
+</header>
+<main class="flex-1 p-container-padding overflow-y-auto">
+<div class="mb-section-gap flex justify-between items-end">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Patient Management</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Register new patients and manage existing directory records.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<div class="lg:col-span-4 flex flex-col gap-gutter">
+<div class="glass-card rounded-xl p-6 shadow-sm">
+<div class="flex justify-between items-center mb-6 border-b border-outline-variant/30 pb-4">
+<h3 class="text-title-lg font-title-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">person_add</span>
+                                New Registration
+                            </h3>
+<div class="bg-primary/10 border border-primary/30 text-primary px-3 py-1 rounded-full text-label-md font-label-md flex items-center gap-1 shadow-[0_0_8px_rgba(68,229,204,0.15)]">
+<span class="material-symbols-outlined text-[14px]">tag</span>
+                                PID-00421
+                            </div>
+</div>
+<form class="flex flex-col gap-4">
+<div class="floating-input-wrapper">
+<input class="floating-input" id="patientName" placeholder=" " required="" type="text"/>
+<label class="floating-label" for="patientName">Full Legal Name</label>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="floating-input-wrapper">
+<input class="floating-input" id="patientAge" placeholder=" " required="" type="number"/>
+<label class="floating-label" for="patientAge">Age</label>
+</div>
+<div class="floating-input-wrapper relative">
+<select class="floating-input appearance-none bg-transparent" id="patientGender" required="">
+<option disabled="" selected="" value=""></option>
+<option class="bg-surface-container" value="Male">Male</option>
+<option class="bg-surface-container" value="Female">Female</option>
+<option class="bg-surface-container" value="Other">Other</option>
+</select>
+<label class="floating-label text-[11px] font-bold text-primary top-2" for="patientGender">Gender</label>
+<span class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="floating-input-wrapper">
+<input class="floating-input" id="patientPhone" placeholder=" " type="tel"/>
+<label class="floating-label" for="patientPhone">Contact Number</label>
+</div>
+<div class="floating-input-wrapper">
+<input class="floating-input" id="patientAddress" placeholder=" " type="text"/>
+<label class="floating-label" for="patientAddress">Residential Address</label>
+</div>
+<div class="floating-input-wrapper">
+<input class="floating-input" id="patientInsurance" placeholder=" " type="text"/>
+<label class="floating-label" for="patientInsurance">Insurance Provider &amp; ID</label>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant/30 flex gap-3">
+<button class="flex-1 border border-outline text-on-surface-variant hover:bg-surface-container-highest px-4 py-2.5 rounded-lg text-label-md font-label-md transition-colors" type="button">Clear</button>
+<button class="flex-1 bg-primary text-on-primary hover:bg-primary-fixed px-4 py-2.5 rounded-lg text-label-md font-label-md transition-colors shadow-[0_0_12px_rgba(68,229,204,0.3)]" type="submit">Register Patient</button>
+</div>
+</form>
+</div>
+</div>
+<div class="lg:col-span-8 flex flex-col gap-gutter">
+<div class="bg-tertiary-container/10 border border-tertiary/30 rounded-xl p-4 flex items-start gap-4 shadow-sm relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<span class="material-symbols-outlined text-tertiary mt-0.5">warning</span>
+<div>
+<h4 class="text-label-md font-label-md text-tertiary mb-1">Duplicate Warning Detected</h4>
+<p class="text-body-md font-body-md text-on-surface-variant">A patient profile matching the name "Sarah Jenkins" and DOB already exists in the system. Please verify before creating a new record.</p>
+</div>
+<button class="ml-auto text-label-md font-label-md text-tertiary border border-tertiary/50 hover:bg-tertiary/10 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
+                            Review Match
+                        </button>
+</div>
+<div class="glass-card rounded-xl shadow-sm flex flex-col flex-1 overflow-hidden">
+<div class="p-6 border-b border-outline-variant/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<h3 class="text-title-lg font-title-lg text-on-surface">Directory</h3>
+<div class="flex gap-3 w-full sm:w-auto">
+<div class="bg-surface-container-low rounded-lg px-3 py-2 flex items-center gap-2 border border-outline/30 flex-1 sm:w-64">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md font-body-md text-on-surface placeholder:text-on-surface-variant outline-none w-full p-0" placeholder="Search by name, PID..." type="text"/>
+</div>
+<button class="bg-surface-container-low border border-outline/30 text-on-surface-variant hover:bg-surface-container px-3 py-2 rounded-lg flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+<span class="text-label-md font-label-md hidden sm:inline">Filter</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div><table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/30 bg-surface-container-low/50">
+<th class="p-4 text-label-md font-label-md text-on-surface-variant font-bold">PID</th>
+<th class="p-4 text-label-md font-label-md text-on-surface-variant font-bold">Patient Name</th>
+<th class="p-4 text-label-md font-label-md text-on-surface-variant font-bold">Age/Gender</th>
+<th class="p-4 text-label-md font-label-md text-on-surface-variant font-bold">Status</th>
+<th class="p-4 text-label-md font-label-md text-on-surface-variant font-bold text-right">Actions</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-outline-variant/30 flex justify-between items-center text-body-md font-body-md text-on-surface-variant bg-surface-container-low/50">
+<span>Showing 4 of 128 patients</span>
+<div class="flex gap-1">
+<button class="w-8 h-8 rounded flex items-center justify-center hover:bg-surface-container transition-colors disabled:opacity-50">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded flex items-center justify-center bg-primary text-on-primary font-bold">1</button>
+<button class="w-8 h-8 rounded flex items-center justify-center hover:bg-surface-container transition-colors">2</button>
+<button class="w-8 h-8 rounded flex items-center justify-center hover:bg-surface-container transition-colors">3</button>
+<button class="w-8 h-8 rounded flex items-center justify-center hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const registrationForm = document.querySelector('form');
+        const patientTableBody = document.querySelector('tbody');
+        const searchInput = document.querySelector('input[placeholder="Search by name, PID..."]');
+
+        const renderPatientRow = (patient) => {
+            const row = document.createElement('tr');
+            row.className = 'border-b border-outline-variant/10 hover:bg-primary/5 transition-colors group relative';
+            row.innerHTML = `
+                <td class="p-4 text-body-md font-body-md text-on-surface font-mono">PID-${String(patient.patient_id).padStart(5, '0')}</td>
+                <td class="p-4 text-body-md font-body-md text-on-surface font-bold">${patient.full_name}</td>
+                <td class="p-4 text-body-md font-body-md text-on-surface-variant">${patient.age} / ${patient.gender}</td>
+                <td class="p-4">
+                    <span class="inline-flex items-center gap-1.5 bg-primary/10 text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                        Outpatient
+                    </span>
+                </td>
+                <td class="p-4 text-right flex justify-end gap-2">
+                    <button onclick="window.editPatient(${patient.patient_id})" class="text-on-surface-variant hover:text-primary transition-colors p-1.5 rounded bg-surface-container-low hover:bg-surface-container">
+                        <span class="material-symbols-outlined text-[18px]">edit</span>
+                    </button>
+                    <button onclick="window.deletePatient(${patient.patient_id})" class="text-on-surface-variant hover:text-error transition-colors p-1.5 rounded bg-surface-container-low hover:bg-surface-container">
+                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                    </button>
+                </td>
+            `;
+            patientTableBody.appendChild(row);
+        };
+
+        let currentEditId = null;
+
+        window.deletePatient = async (id) => {
+            if(confirm('Are you sure you want to delete this patient?')) {
+                try {
+                    const response = await fetch(`/api/patients/${id}`, { method: 'DELETE' });
+                    if(response.ok) {
+                        alert('Patient deleted successfully');
+                        loadPatients();
+                    } else {
+                        alert('Error deleting patient');
+                    }
+                } catch(e) {
+                    console.error(e);
+                }
+            }
+        };
+
+        window.editPatient = async (id) => {
+            try {
+                const response = await fetch('/api/patients');
+                const patients = await response.json();
+                const patient = patients.find(p => p.patient_id === id);
+                if (patient) {
+                    document.getElementById('patientName').value = patient.full_name;
+                    document.getElementById('patientAge').value = patient.age;
+                    document.getElementById('patientGender').value = patient.gender;
+                    document.getElementById('patientPhone').value = patient.phone || '';
+                    document.getElementById('patientAddress').value = patient.address || '';
+                    currentEditId = id;
+                    document.querySelector('button[type="submit"]').textContent = 'Update Patient';
+                }
+            } catch(e) {
+                console.error(e);
+            }
+        };
+
+        const loadPatients = async (query = '') => {
+            try {
+                const response = await fetch('/api/patients');
+                if (!response.ok) throw new Error('Failed to fetch patients');
+                const patients = await response.json();
+                
+                patientTableBody.innerHTML = '';
+                const filtered = patients.filter(p => 
+                    p.full_name.toLowerCase().includes(query.toLowerCase()) || 
+                    String(p.patient_id).includes(query)
+                );
+                filtered.forEach(renderPatientRow);
+            } catch (error) {
+                console.error('Error loading patients:', error);
+            }
+        };
+
+        registrationForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const full_name = document.getElementById('patientName').value;
+            const age = document.getElementById('patientAge').value;
+            const gender = document.getElementById('patientGender').value;
+            const phone = document.getElementById('patientPhone').value;
+            const address = document.getElementById('patientAddress').value;
+
+            const patientData = {
+                patient_id: currentEditId || 0,
+                full_name,
+                age: parseInt(age),
+                gender,
+                phone,
+                address
+            };
+
+            try {
+                const url = currentEditId ? `/api/patients/${currentEditId}` : '/api/patients';
+                const method = currentEditId ? 'PUT' : 'POST';
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(patientData)
+                });
+
+                if (response.ok) {
+                    registrationForm.reset();
+                    currentEditId = null;
+                    document.querySelector('button[type="submit"]').textContent = 'Register Patient';
+                    loadPatients();
+                    alert(method === 'PUT' ? 'Patient updated successfully!' : 'Patient registered successfully!');
+                } else {
+                    alert('Error saving patient');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+
+        const clearBtn = document.querySelector('button[type="button"]');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                registrationForm.reset();
+                currentEditId = null;
+                document.querySelector('button[type="submit"]').textContent = 'Register Patient';
+            });
+        }
+
+        if (searchInput) searchInput.addEventListener('input', (e) => loadPatients(e.target.value));
+        loadPatients();
+    });
+</script>
+</body></html>
