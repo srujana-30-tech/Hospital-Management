@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lumina Health - Auth &amp; Access Control</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#191c1e",
+                        "surface-container-high": "#272a2c",
+                        "on-error-container": "#ffdad6",
+                        "outline": "#85948f",
+                        "on-surface-variant": "#bacac5",
+                        "surface-container-highest": "#323537",
+                        "tertiary-fixed-dim": "#ffb955",
+                        "surface-dim": "#101415",
+                        "on-primary-container": "#004f44",
+                        "on-secondary-fixed": "#0f1c2c",
+                        "secondary-fixed-dim": "#bac7dd",
+                        "surface-container": "#1d2022",
+                        "surface-tint": "#38ddc4",
+                        "primary": "#44e5cc",
+                        "secondary-fixed": "#d6e3fa",
+                        "on-primary-fixed-variant": "#005046",
+                        "on-tertiary-container": "#613e00",
+                        "tertiary-fixed": "#ffddb4",
+                        "surface-bright": "#363a3b",
+                        "tertiary-container": "#f1a31f",
+                        "inverse-on-surface": "#2d3133",
+                        "on-secondary-container": "#a8b6cb",
+                        "secondary": "#bac7dd",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed": "#291800",
+                        "on-tertiary-fixed-variant": "#633f00",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#0b0f10",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#3a485a",
+                        "secondary-container": "#3a485a",
+                        "outline-variant": "#3b4a46",
+                        "on-background": "#e0e3e5",
+                        "primary-fixed": "#5ffae0",
+                        "on-secondary": "#243142",
+                        "background": "#101415",
+                        "primary-fixed-dim": "#38ddc4",
+                        "on-tertiary": "#452b00",
+                        "primary-container": "#00c9b1",
+                        "surface": "#101415",
+                        "on-surface": "#e0e3e5",
+                        "tertiary": "#ffc474",
+                        "on-primary": "#003730",
+                        "inverse-primary": "#006b5d",
+                        "inverse-surface": "#e0e3e5",
+                        "on-primary-fixed": "#00201b",
+                        "surface-variant": "#323537"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "1.5rem",
+                        "unit": "4px",
+                        "section-gap": "2.5rem",
+                        "sidebar-width": "280px",
+                        "stack-gap": "1rem",
+                        "container-padding": "2rem"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Playfair Display"],
+                        "title-lg": ["DM Sans"],
+                        "headline-lg": ["Playfair Display"],
+                        "body-lg": ["DM Sans"],
+                        "body-md": ["DM Sans"],
+                        "caption": ["DM Sans"],
+                        "label-md": ["DM Sans"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "caption": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base styles to ensure consistency */
+        body { margin: 0; padding: 0; }
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Custom scrollbar for dark theme */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #3b4a46; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #85948f; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex font-body-lg text-body-lg">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen w-sidebar-width bg-surface-container-low dark:bg-surface-container-low border-r border-white/10 dark:border-outline-variant/10 flex flex-col h-full py-6 z-40">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">local_hospital</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md text-white">Lumina Health</h1>
+<p class="text-label-md font-label-md text-white/60">Admin Portal</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto space-y-1">
+<a class="flex items-center gap-3 text-primary bg-primary/10 border-l-4 border-primary px-4 py-3 text-label-md font-label-md transition-all duration-200 ease-in-out" href="/static/clinical_reporting_dashboard/code.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all text-label-md font-label-md hover:bg-white/5 duration-200 ease-in-out" href="/static/patient_management/code.html">
+<span class="material-symbols-outlined">patient_list</span>
+                Patients
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all text-label-md font-label-md hover:bg-white/5 duration-200 ease-in-out" href="/static/doctor_directory_management/code.html">
+<span class="material-symbols-outlined">medical_services</span>
+                Doctors
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all text-label-md font-label-md hover:bg-white/5 duration-200 ease-in-out" href="/static/appointment_scheduling_view/code.html">
+<span class="material-symbols-outlined">event_note</span>
+                Appointments
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all text-label-md font-label-md hover:bg-white/5 duration-200 ease-in-out" href="/static/patient_electronic_health_records/code.html">
+<span class="material-symbols-outlined">description</span>
+                Records
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all text-label-md font-label-md hover:bg-white/5 duration-200 ease-in-out" href="/static/billing_insurance_management/code.html">
+<span class="material-symbols-outlined">payments</span>
+                Billing
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all text-label-md font-label-md hover:bg-white/5 duration-200 ease-in-out" href="/static/pharmacy_stock_inventory/code.html">
+<span class="material-symbols-outlined">medication</span>
+                Pharmacy
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all text-label-md font-label-md hover:bg-white/5 duration-200 ease-in-out" href="/static/laboratory_services_results/code.html">
+<span class="material-symbols-outlined">biotech</span>
+                Laboratory
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all text-label-md font-label-md hover:bg-white/5 duration-200 ease-in-out" href="/static/facility_bed_management/code.html">
+<span class="material-symbols-outlined">bed</span>
+                Rooms
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all text-label-md font-label-md hover:bg-white/5 duration-200 ease-in-out" href="/static/admin_user_access_control/code.html">
+<span class="material-symbols-outlined">analytics</span>
+                Reports
+            </a>
+</div>
+<div class="mt-auto pt-4 border-t border-white/10 space-y-1">
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all text-label-md font-label-md hover:bg-white/5 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">help</span>
+                Support
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all text-label-md font-label-md hover:bg-white/5 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="ml-[280px] flex-1 min-h-screen p-container-padding flex flex-col gap-section-gap w-full bg-background relative overflow-x-hidden">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pt-4">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary-fixed">Auth &amp; Access Control</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-2 max-w-2xl">Monitor system access, manage personnel roles, and review recent authentication attempts across the network.</p>
+</div>
+<div class="flex flex-wrap gap-4 items-center w-full md:w-auto">
+<div class="relative w-full md:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container rounded-lg border border-outline-variant/50 focus:border-primary focus:ring-1 focus:ring-primary text-body-md font-body-md text-on-surface placeholder-on-surface-variant/50 transition-colors" placeholder="Search accounts..." type="text"/>
+</div>
+<div class="relative w-full md:w-48">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">filter_list</span>
+<select class="w-full pl-10 pr-8 py-2.5 bg-surface-container rounded-lg border border-outline-variant/50 focus:border-primary focus:ring-1 focus:ring-primary text-body-md font-body-md text-on-surface appearance-none transition-colors cursor-pointer">
+<option value="">All Roles</option>
+<option value="admin">Admin</option>
+<option value="doctor">Doctor</option>
+<option value="nurse">Nurse</option>
+<option value="pharmacist">Pharmacist</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+</header>
+<!-- Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- User Accounts Table (Bento Style Card) -->
+<div class="lg:col-span-8 glass-panel rounded-xl overflow-hidden flex flex-col shadow-lg shadow-black/20 relative">
+<!-- Inner glow effect -->
+<div class="absolute inset-0 rounded-xl pointer-events-none border border-white/5"></div>
+<div class="p-5 border-b border-white/10 flex justify-between items-center bg-surface-container/50">
+<h3 class="text-title-lg font-title-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">manage_accounts</span>
+                        User Directory
+                    </h3>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors text-label-md font-label-md">
+<span class="material-symbols-outlined text-[18px]">add</span> Add User
+                    </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-highest/50 text-on-surface-variant text-label-md font-label-md uppercase tracking-wider">
+<th class="p-4 font-bold w-1/3">Personnel</th>
+<th class="p-4 font-bold">Role</th>
+<th class="p-4 font-bold">Status</th>
+<th class="p-4 font-bold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="text-body-md font-body-md divide-y divide-white/5">
+<!-- Row 1: Admin -->
+<tr class="bg-surface/40 hover:bg-primary/5 transition-all group">
+<td class="p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container text-title-lg font-title-lg">MR</div>
+<div>
+<div class="text-on-surface font-medium group-hover:text-primary transition-colors">Marcus Reynolds</div>
+<div class="text-on-surface-variant text-caption font-caption">m.reynolds@lumina.med</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-caption font-caption font-bold">Admin</span>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-on-surface-variant text-caption font-caption">Active</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<button class="px-3 py-1.5 rounded border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-colors text-label-md font-label-md">Reset Password</button>
+</td>
+</tr>
+<!-- Row 2: Doctor -->
+<tr class="bg-surface-variant/20 hover:bg-primary/5 transition-all group">
+<td class="p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container text-title-lg font-title-lg">SL</div>
+<div>
+<div class="text-on-surface font-medium group-hover:text-primary transition-colors">Dr. Sarah Lin</div>
+<div class="text-on-surface-variant text-caption font-caption">s.lin@lumina.med</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20 text-caption font-caption font-bold">Doctor</span>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-on-surface-variant text-caption font-caption">Active</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<button class="px-3 py-1.5 rounded border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-colors text-label-md font-label-md">Reset Password</button>
+</td>
+</tr>
+<!-- Row 3: Nurse -->
+<tr class="bg-surface/40 hover:bg-primary/5 transition-all group">
+<td class="p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container text-title-lg font-title-lg">JD</div>
+<div>
+<div class="text-on-surface font-medium group-hover:text-primary transition-colors">James Dawson</div>
+<div class="text-on-surface-variant text-caption font-caption">j.dawson@lumina.med</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20 text-caption font-caption font-bold">Nurse</span>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-on-surface-variant"></div>
+<span class="text-on-surface-variant text-caption font-caption">Offline</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<button class="px-3 py-1.5 rounded border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-colors text-label-md font-label-md">Reset Password</button>
+</td>
+</tr>
+<!-- Row 4: Receptionist -->
+<tr class="bg-surface-variant/20 hover:bg-primary/5 transition-all group">
+<td class="p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-[#eaddff] flex items-center justify-center text-[#21005d] text-title-lg font-title-lg">AP</div>
+<div>
+<div class="text-on-surface font-medium group-hover:text-primary transition-colors">Alicia Perez</div>
+<div class="text-on-surface-variant text-caption font-caption">a.perez@lumina.med</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-[#d0bcff]/10 text-[#d0bcff] border border-[#d0bcff]/20 text-caption font-caption font-bold">Receptionist</span>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-on-surface-variant text-caption font-caption">Active</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<button class="px-3 py-1.5 rounded border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-colors text-label-md font-label-md">Reset Password</button>
+</td>
+</tr>
+<!-- Row 5: Pharmacist -->
+<tr class="bg-surface/40 hover:bg-primary/5 transition-all group">
+<td class="p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-tint/20 flex items-center justify-center text-surface-tint text-title-lg font-title-lg">TK</div>
+<div>
+<div class="text-on-surface font-medium group-hover:text-primary transition-colors">Thomas Keller</div>
+<div class="text-on-surface-variant text-caption font-caption">t.keller@lumina.med</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-surface-tint/10 text-surface-tint border border-surface-tint/20 text-caption font-caption font-bold">Pharmacist</span>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="text-error text-caption font-caption">Locked</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<button class="px-3 py-1.5 rounded bg-error/10 border border-error/30 text-error hover:bg-error hover:text-on-error transition-colors text-label-md font-label-md">Unlock Account</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Login Attempts Log -->
+<div class="lg:col-span-4 glass-panel rounded-xl overflow-hidden flex flex-col shadow-lg shadow-black/20 h-full relative">
+<div class="absolute inset-0 rounded-xl pointer-events-none border border-white/5"></div>
+<div class="p-5 border-b border-white/10 bg-surface-container/50">
+<h3 class="text-title-lg font-title-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">security</span>
+                        Auth Log
+                    </h3>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-3">
+<!-- Log Item: Success -->
+<div class="flex flex-col gap-2 p-3 rounded-lg bg-surface/50 border border-white/5 hover:border-primary/30 transition-colors">
+<div class="flex justify-between items-start">
+<div class="text-body-md font-body-md text-on-surface font-medium truncate max-w-[150px]">m.reynolds@lumina.med</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-primary/10 text-primary text-caption font-caption border border-primary/20">Success</span>
+</div>
+<div class="flex justify-between items-center text-caption font-caption text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Oct 26, 2023</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 08:42 AM</span>
+</div>
+</div>
+<!-- Log Item: Failed -->
+<div class="flex flex-col gap-2 p-3 rounded-lg bg-surface/50 border border-error/20 hover:border-error/50 transition-colors relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="flex justify-between items-start pl-2">
+<div class="text-body-md font-body-md text-on-surface font-medium truncate max-w-[150px]">admin@lumina.med</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-error/10 text-error text-caption font-caption border border-error/20">Failed</span>
+</div>
+<div class="flex justify-between items-center text-caption font-caption text-on-surface-variant pl-2">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Oct 26, 2023</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 07:15 AM</span>
+</div>
+</div>
+<!-- Log Item: Success -->
+<div class="flex flex-col gap-2 p-3 rounded-lg bg-surface/50 border border-white/5 hover:border-primary/30 transition-colors">
+<div class="flex justify-between items-start">
+<div class="text-body-md font-body-md text-on-surface font-medium truncate max-w-[150px]">s.lin@lumina.med</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-primary/10 text-primary text-caption font-caption border border-primary/20">Success</span>
+</div>
+<div class="flex justify-between items-center text-caption font-caption text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Oct 25, 2023</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 11:30 PM</span>
+</div>
+</div>
+<!-- Log Item: Failed Multiple -->
+<div class="flex flex-col gap-2 p-3 rounded-lg bg-surface/50 border border-error/20 hover:border-error/50 transition-colors relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="flex justify-between items-start pl-2">
+<div class="text-body-md font-body-md text-on-surface font-medium truncate max-w-[150px]">t.keller@lumina.med</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-error/10 text-error text-caption font-caption border border-error/20">Failed</span>
+</div>
+<div class="flex justify-between items-center text-caption font-caption text-on-surface-variant pl-2">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Oct 25, 2023</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 09:12 PM</span>
+</div>
+<div class="pl-2 text-caption font-caption text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> Account Locked
+                        </div>
+</div>
+</div>
+<div class="p-3 border-t border-white/10 text-center">
+<button class="text-secondary hover:text-secondary-fixed transition-colors text-label-md font-label-md uppercase tracking-wider">View Full Log</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>
