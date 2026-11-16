@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lumina Health - Laboratory Management</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#191c1e",
+                    "surface-container-high": "#272a2c",
+                    "on-error-container": "#ffdad6",
+                    "outline": "#85948f",
+                    "on-surface-variant": "#bacac5",
+                    "surface-container-highest": "#323537",
+                    "tertiary-fixed-dim": "#ffb955",
+                    "surface-dim": "#101415",
+                    "on-primary-container": "#004f44",
+                    "on-secondary-fixed": "#0f1c2c",
+                    "secondary-fixed-dim": "#bac7dd",
+                    "surface-container": "#1d2022",
+                    "surface-tint": "#38ddc4",
+                    "primary": "#44e5cc",
+                    "secondary-fixed": "#d6e3fa",
+                    "on-primary-fixed-variant": "#005046",
+                    "on-tertiary-container": "#613e00",
+                    "tertiary-fixed": "#ffddb4",
+                    "surface-bright": "#363a3b",
+                    "tertiary-container": "#f1a31f",
+                    "inverse-on-surface": "#2d3133",
+                    "on-secondary-container": "#a8b6cb",
+                    "secondary": "#bac7dd",
+                    "on-error": "#690005",
+                    "on-tertiary-fixed": "#291800",
+                    "on-tertiary-fixed-variant": "#633f00",
+                    "error": "#ffb4ab",
+                    "surface-container-lowest": "#0b0f10",
+                    "error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#3a485a",
+                    "secondary-container": "#3a485a",
+                    "outline-variant": "#3b4a46",
+                    "on-background": "#e0e3e5",
+                    "primary-fixed": "#5ffae0",
+                    "on-secondary": "#243142",
+                    "background": "#101415",
+                    "primary-fixed-dim": "#38ddc4",
+                    "on-tertiary": "#452b00",
+                    "primary-container": "#00c9b1",
+                    "surface": "#101415",
+                    "on-surface": "#e0e3e5",
+                    "tertiary": "#ffc474",
+                    "on-primary": "#003730",
+                    "inverse-primary": "#006b5d",
+                    "inverse-surface": "#e0e3e5",
+                    "on-primary-fixed": "#00201b",
+                    "surface-variant": "#323537"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "1.5rem",
+                    "unit": "4px",
+                    "section-gap": "2.5rem",
+                    "sidebar-width": "280px",
+                    "stack-gap": "1rem",
+                    "container-padding": "2rem"
+            },
+            "fontFamily": {
+                    "headline-md": ["Playfair Display"],
+                    "title-lg": ["DM Sans"],
+                    "headline-lg": ["Playfair Display"],
+                    "body-lg": ["DM Sans"],
+                    "body-md": ["DM Sans"],
+                    "caption": ["DM Sans"],
+                    "label-md": ["DM Sans"],
+                    "display-lg": ["Playfair Display"],
+                    "headline-lg-mobile": ["Playfair Display"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex antialiased">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen w-sidebar-width bg-surface-container-low dark:bg-surface-container-low border-r border-white/10 dark:border-outline-variant/10 flex flex-col py-6 z-40 hidden md:flex">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">local_hospital</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md text-white">Lumina Health</h1>
+<p class="text-caption font-caption text-on-surface-variant">Admin Portal</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg mx-2 text-label-md font-label-md" href="/static/clinical_reporting_dashboard/code.html">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg mx-2 text-label-md font-label-md" href="/static/patient_management/code.html">
+<span class="material-symbols-outlined">patient_list</span>
+                Patients
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg mx-2 text-label-md font-label-md" href="/static/doctor_directory_management/code.html">
+<span class="material-symbols-outlined">medical_services</span>
+                Doctors
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg mx-2 text-label-md font-label-md" href="/static/appointment_scheduling_view/code.html">
+<span class="material-symbols-outlined">event_note</span>
+                Appointments
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg mx-2 text-label-md font-label-md" href="/static/patient_electronic_health_records/code.html">
+<span class="material-symbols-outlined">description</span>
+                Records
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg mx-2 text-label-md font-label-md" href="/static/billing_insurance_management/code.html">
+<span class="material-symbols-outlined">payments</span>
+                Billing
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg mx-2 text-label-md font-label-md" href="/static/pharmacy_stock_inventory/code.html">
+<span class="material-symbols-outlined">medication</span>
+                Pharmacy
+            </a>
+<a class="flex items-center gap-3 text-primary bg-primary/10 border-l-4 border-primary px-4 py-3 transition-all duration-200 ease-in-out rounded-r-lg ml-2 mr-4 text-label-md font-label-md" href="/static/laboratory_services_results/code.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">biotech</span>
+                Laboratory
+            </a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg mx-2 text-label-md font-label-md" href="/static/facility_bed_management/code.html">
+<span class="material-symbols-outlined">bed</span>
+                Rooms
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 md:ml-sidebar-width flex flex-col min-h-screen relative w-full">
+<!-- TopNavBar -->
+<header class="docked full-width top-0 sticky z-50 bg-white/90 dark:bg-surface-container-high/90 backdrop-blur-xl border-b border-white/20 dark:border-outline-variant/20 shadow-sm flex justify-between items-center w-full px-gutter h-16">
+<div class="flex items-center gap-4">
+<span class="text-title-lg font-title-lg font-bold text-primary dark:text-primary-fixed">Lumina Medical</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant dark:text-on-surface-variant hover:bg-primary/10 transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-label-md font-label-md text-primary dark:text-primary-fixed border border-primary/30 px-4 py-2 rounded-full">Logout</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center border border-outline-variant ml-2 overflow-hidden">
+    <span class="material-symbols-outlined text-primary text-sm">person</span>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="p-container-padding flex-1">
+<div class="mb-8">
+<h2 class="text-headline-lg font-headline-lg text-on-surface mb-2">Laboratory Requests</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Manage pending tests, input clinical results, and sync data to patient EHR records.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Request List (8 cols) -->
+<div class="lg:col-span-8 bg-surface-container/60 backdrop-blur-md border border-white/10 dark:border-outline-variant/30 rounded-xl overflow-hidden flex flex-col h-[700px]">
+<div class="p-6 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-low">
+<h3 class="text-title-lg font-title-lg text-on-surface">Assays List</h3>
+<div class="flex gap-2">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-[20px]">search</span>
+<input id="labSearch" class="bg-surface-variant border-none rounded-lg pl-10 pr-4 py-2 text-body-md font-body-md text-on-surface placeholder-on-surface-variant focus:ring-1 focus:ring-primary w-64" placeholder="Search Patient ID..." type="text"/>
+</div>
+</div>
+</div>
+<!-- Table Area -->
+<div class="flex-1 overflow-auto">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-surface-container-high border-b border-outline-variant/30 text-label-md font-label-md text-on-surface-variant z-10">
+<tr>
+<th class="px-6 py-4 font-semibold uppercase tracking-wider">Patient / ID</th>
+<th class="px-6 py-4 font-semibold uppercase tracking-wider">Test Name</th>
+<th class="px-6 py-4 font-semibold uppercase tracking-wider">Date</th>
+<th class="px-6 py-4 font-semibold uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 font-semibold uppercase tracking-wider text-right">Action</th>
+</tr>
+</thead>
+<tbody id="labTestsTable" class="text-body-md font-body-md divide-y divide-outline-variant/10">
+    <!-- Rows will be injected here -->
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Column: Result Entry Form (4 cols) -->
+<div class="lg:col-span-4 bg-surface-container-low/80 backdrop-blur-xl border border-white/10 dark:border-outline-variant/30 rounded-xl p-6 flex flex-col h-[700px] relative overflow-hidden">
+<div class="mb-6 pb-4 border-b border-outline-variant/20">
+<h3 class="text-title-lg font-title-lg text-on-surface flex items-center gap-2">
+    Result Detail
+    <span class="material-symbols-outlined text-primary text-[20px]">science</span>
+</h3>
+<p id="selectedPatient" class="text-caption font-caption text-on-surface-variant mt-1">Select a test to view details</p>
+</div>
+<div class="flex-1 overflow-y-auto pr-2 space-y-6">
+    <div id="resultContent" class="space-y-4">
+        <p class="text-body-md text-on-surface-variant">No test selected.</p>
+    </div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const labTestsTableBody = document.getElementById('labTestsTable');
+        const selectedPatientEl = document.getElementById('selectedPatient');
+        const resultContentEl = document.getElementById('resultContent');
+        const labSearch = document.getElementById('labSearch');
+
+        const renderTests = (tests) => {
+            labTestsTableBody.innerHTML = '';
+            tests.forEach(test => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-primary/5 transition-colors cursor-pointer border-l-2 border-transparent hover:border-primary';
+                row.onclick = () => showResult(test);
+                
+                const statusColor = test.status === 'Completed' ? 'bg-primary-container/20 text-primary border-primary-container/30' : 'bg-tertiary-container/20 text-tertiary-fixed border-tertiary-container/30';
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4">
+                        <div class="text-on-surface font-medium">${test.patient_name}</div>
+                        <div class="text-caption font-caption text-on-surface-variant">ID: ${test.patient_id}</div>
+                    </td>
+                    <td class="px-6 py-4 text-on-surface">${test.test_name}</td>
+                    <td class="px-6 py-4 text-on-surface-variant">${test.test_date}</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${statusColor} border">
+                            ${test.status}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <span class="material-symbols-outlined text-primary">visibility</span>
+                    </td>
+                `;
+                labTestsTableBody.appendChild(row);
+            });
+        };
+
+        const showResult = (test) => {
+            selectedPatientEl.textContent = `${test.patient_name} • ${test.test_name} • ${test.test_date}`;
+            resultContentEl.innerHTML = `
+                <div class="space-y-4">
+                    <h4 class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Clinical Result</h4>
+                    <div class="p-4 bg-surface rounded-lg border border-outline-variant">
+                        <p class="text-headline-md font-bold text-primary">${test.result || 'Pending'}</p>
+                        <p class="text-caption text-on-surface-variant mt-1">Status: ${test.status}</p>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider mb-2">Notes</h4>
+                        <textarea class="w-full bg-surface border border-outline-variant rounded-lg p-3 text-body-md text-on-surface outline-none focus:border-primary transition-all" rows="4" readonly>${test.result || 'No results reported yet.'}</textarea>
+                    </div>
+                </div>
+            `;
+        };
+
+        const loadTests = async () => {
+            try {
+                const response = await fetch('/api/lab-tests');
+                if (!response.ok) throw new Error('Failed to fetch tests');
+                const tests = await response.json();
+                renderTests(tests);
+            } catch (err) {
+                console.error('Error:', err);
+                labTestsTableBody.innerHTML = '<tr><td colspan="5" class="p-6 text-center text-error">Error loading tests.</td></tr>';
+            }
+        };
+
+        labSearch.addEventListener('input', async (e) => {
+            const term = e.target.value.toLowerCase();
+            const response = await fetch('/api/lab-tests');
+            const tests = await response.json();
+            const filtered = tests.filter(t => 
+                t.patient_name.toLowerCase().includes(term) || 
+                String(t.patient_id).includes(term) ||
+                t.test_name.toLowerCase().includes(term)
+            );
+            renderTests(filtered);
+        });
+
+        loadTests();
+    });
+</script>
+</body></html>
