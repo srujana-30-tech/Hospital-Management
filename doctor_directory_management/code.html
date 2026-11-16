@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Doctor Management - Lumina Medical</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#191c1e",
+                        "surface-container-high": "#272a2c",
+                        "on-error-container": "#ffdad6",
+                        "outline": "#85948f",
+                        "on-surface-variant": "#bacac5",
+                        "surface-container-highest": "#323537",
+                        "tertiary-fixed-dim": "#ffb955",
+                        "surface-dim": "#101415",
+                        "on-primary-container": "#004f44",
+                        "on-secondary-fixed": "#0f1c2c",
+                        "secondary-fixed-dim": "#bac7dd",
+                        "surface-container": "#1d2022",
+                        "surface-tint": "#38ddc4",
+                        "primary": "#44e5cc",
+                        "secondary-fixed": "#d6e3fa",
+                        "on-primary-fixed-variant": "#005046",
+                        "on-tertiary-container": "#613e00",
+                        "tertiary-fixed": "#ffddb4",
+                        "surface-bright": "#363a3b",
+                        "tertiary-container": "#f1a31f",
+                        "inverse-on-surface": "#2d3133",
+                        "on-secondary-container": "#a8b6cb",
+                        "secondary": "#bac7dd",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed": "#291800",
+                        "on-tertiary-fixed-variant": "#633f00",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#0b0f10",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#3a485a",
+                        "secondary-container": "#3a485a",
+                        "outline-variant": "#3b4a46",
+                        "on-background": "#e0e3e5",
+                        "primary-fixed": "#5ffae0",
+                        "on-secondary": "#243142",
+                        "background": "#101415",
+                        "primary-fixed-dim": "#38ddc4",
+                        "on-tertiary": "#452b00",
+                        "primary-container": "#00c9b1",
+                        "surface": "#101415",
+                        "on-surface": "#e0e3e5",
+                        "tertiary": "#ffc474",
+                        "on-primary": "#003730",
+                        "inverse-primary": "#006b5d",
+                        "inverse-surface": "#e0e3e5",
+                        "on-primary-fixed": "#00201b",
+                        "surface-variant": "#323537"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "1.5rem",
+                        "unit": "4px",
+                        "section-gap": "2.5rem",
+                        "sidebar-width": "280px",
+                        "stack-gap": "1rem",
+                        "container-padding": "2rem"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Playfair Display"],
+                        "title-lg": ["DM Sans"],
+                        "headline-lg": ["Playfair Display"],
+                        "body-lg": ["DM Sans"],
+                        "body-md": ["DM Sans"],
+                        "caption": ["DM Sans"],
+                        "label-md": ["DM Sans"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "caption": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex selection:bg-primary selection:text-on-primary">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex bg-surface-container-low border-r border-outline-variant/10 fixed left-0 top-0 h-screen w-sidebar-width flex-col h-full py-6 z-40">
+<div class="px-gutter mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="local_hospital">local_hospital</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md text-white">Lumina Health</h1>
+<p class="text-caption font-caption text-on-surface-variant">Admin Portal</p>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto overflow-x-hidden space-y-1">
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/clinical_reporting_dashboard/code.html">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/patient_management/code.html">
+<span class="material-symbols-outlined" data-icon="patient_list">patient_list</span>
+<span class="text-label-md font-label-md">Patients</span>
+</a>
+<a class="flex items-center gap-3 text-primary bg-primary/10 border-l-4 border-primary px-4 py-3 transition-all duration-200 ease-in-out" href="/static/doctor_directory_management/code.html">
+<span class="material-symbols-outlined" data-icon="medical_services" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+<span class="text-label-md font-label-md">Doctors</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/appointment_scheduling_view/code.html">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="text-label-md font-label-md">Appointments</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/patient_electronic_health_records/code.html">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-label-md font-label-md">Records</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/billing_insurance_management/code.html">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-label-md font-label-md">Billing</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/pharmacy_stock_inventory/code.html">
+<span class="material-symbols-outlined" data-icon="medication">medication</span>
+<span class="text-label-md font-label-md">Pharmacy</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/laboratory_services_results/code.html">
+<span class="material-symbols-outlined" data-icon="biotech">biotech</span>
+<span class="text-label-md font-label-md">Laboratory</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="/static/facility_bed_management/code.html">
+<span class="material-symbols-outlined" data-icon="bed">bed</span>
+<span class="text-label-md font-label-md">Rooms</span>
+</a>
+</div>
+<div class="mt-auto space-y-1 pt-4 border-t border-outline-variant/10">
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col min-h-screen md:ml-sidebar-width">
+<!-- TopNavBar -->
+<header class="bg-surface-container-high/90 backdrop-blur-xl border-b border-outline-variant/20 shadow-sm docked full-width top-0 sticky z-50 flex justify-between items-center w-full px-gutter h-16">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<!-- Search -->
+<div class="hidden sm:flex items-center bg-surface-container-highest rounded-full px-4 py-2 border border-outline-variant/30 focus-within:border-primary/50 transition-colors w-64">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md font-body-md text-on-surface w-full ml-2 placeholder:text-on-surface-variant/60" placeholder="Search doctors..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-colors scale-95 active:scale-90 relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-colors scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-px bg-outline-variant/30 mx-2"></div>
+<div class="flex items-center gap-3 cursor-pointer group">
+<img alt="Chief Medical Officer Profile" class="w-8 h-8 rounded-full border border-outline-variant/50 object-cover" data-alt="Close up portrait of a mature male medical professional with short grey hair and glasses, wearing a white lab coat over a dark shirt, standing in a brightly lit modern hospital corridor. The lighting is crisp and cool, casting soft reflections on his glasses. The overall mood is confident, authoritative, and deeply focused, adhering to a sophisticated clinical aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7j2km-19Ys5KiAijt4qslVwm6vd_gHmWFNjOWWHGfqkph7bL_B_Ry8qQqIobbLAKkobSooTPf_x5zISQRWBZthlCIDM3cztpxJWHqkoor8swrpm5t-ioCYlWhmM247avDmKYISmBk8-5LHziWV3GaP6q1_iSBLc1RhU9xdG-Gz0HIQJbPxYPPPv8yngm-Fw10TjtjJC-Gj13qWvTyxobQt3Jo3O0NHzSIYXd1NU0nY1xTsBD9fDO6FVGlorZhOse4dxDig15Vepv-"/>
+<div class="hidden lg:block">
+<p class="text-label-md font-label-md text-on-surface group-hover:text-primary transition-colors">Dr. E. Thorne</p>
+<p class="text-caption font-caption text-on-surface-variant">Admin</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 p-container-padding flex flex-col gap-section-gap overflow-x-hidden">
+<!-- Page Header -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-white">Doctor Management</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant mt-1">Manage staff profiles, specializations, and availability.</p>
+</div>
+<button id="add-doctor-btn" class="bg-primary text-on-primary hover:bg-primary-fixed transition-colors px-6 py-2.5 rounded-lg text-label-md font-label-md font-bold flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(68,229,204,0.2)]">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                    Add Doctor
+                </button>
+</div>
+<!-- Filters -->
+<div class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
+<button class="bg-primary text-on-primary px-5 py-2 rounded-full text-label-md font-label-md whitespace-nowrap shadow-[0_0_10px_rgba(68,229,204,0.15)]">All Specializations</button>
+<button class="bg-surface-container hover:bg-surface-container-high text-on-surface border border-outline-variant/30 px-5 py-2 rounded-full text-label-md font-label-md whitespace-nowrap transition-colors">Cardiology</button>
+<button class="bg-surface-container hover:bg-surface-container-high text-on-surface border border-outline-variant/30 px-5 py-2 rounded-full text-label-md font-label-md whitespace-nowrap transition-colors">Orthopedics</button>
+<button class="bg-surface-container hover:bg-surface-container-high text-on-surface border border-outline-variant/30 px-5 py-2 rounded-full text-label-md font-label-md whitespace-nowrap transition-colors">Neurology</button>
+<button class="bg-surface-container hover:bg-surface-container-high text-on-surface border border-outline-variant/30 px-5 py-2 rounded-full text-label-md font-label-md whitespace-nowrap transition-colors">General</button>
+</div>
+<!-- Grid -->
+<div id="doctor-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-stack-gap">
+<!-- Card 1 -->
+<div class="bg-surface-container-low/60 backdrop-blur-xl border border-outline-variant/20 rounded-xl p-6 flex flex-col items-center relative overflow-hidden group hover:border-primary/40 transition-colors">
+<div class="absolute top-4 right-4 flex items-center gap-2">
+<span class="text-caption font-caption text-primary">Available</span>
+<div class="w-9 h-5 bg-primary/20 rounded-full relative cursor-pointer border border-primary/30">
+<div class="w-4 h-4 bg-primary rounded-full absolute right-0.5 top-0.5 shadow-sm"></div>
+</div>
+</div>
+<img alt="Doctor avatar" class="w-20 h-20 rounded-full object-cover border-2 border-surface mb-4 mt-2" data-alt="A portrait of a female doctor with dark hair pulled back, wearing a neat navy blue scrub suit. She is standing against an abstract, blurred background of a modern hospital wing with subtle teal and deep blue lighting. Her expression is compassionate yet highly professional. The image has a crisp, high-contrast cinematic quality typical of premium medical marketing materials." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANxmVIFsUJ76tO6hmMOFQt-luQVUQgM2JJC-OoXrI4WLGtOEpeBGajsivStO06zciJC2E4T5YdTADvUjLYrCnf7NPGeLE634z3IW5FGUgLUKSjBffkbFsfAtLDVCvZf3dcZW2_IicNGMQmY-9NWDNS_aGnMLCaHpv85DsIrHD4j5c3GsdOQ4rBrCXCZtJOoVmwNfT83PEuXQGZqTT32KqCQ_LzkjJsvZMpMJvoUk78PIhlM6z_SiS13DRwGrwXlvPiB3E-pg8gCBFN"/>
+<h3 class="text-title-lg font-title-lg text-white mb-1">Dr. Sarah Jenkins</h3>
+<div class="bg-primary/10 text-primary-fixed px-3 py-1 rounded-full text-caption font-label-md mb-4 border border-primary/20">Cardiology</div>
+<div class="w-full flex flex-col gap-2 mt-2">
+<div class="flex items-center gap-3 text-on-surface-variant text-body-md font-body-md bg-surface-container-highest/30 p-2 rounded-lg">
+<span class="material-symbols-outlined text-[16px]" data-icon="mail">mail</span>
+<span class="truncate">s.jenkins@lumina.med</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant text-body-md font-body-md bg-surface-container-highest/30 p-2 rounded-lg">
+<span class="material-symbols-outlined text-[16px]" data-icon="call">call</span>
+<span>+1 (555) 019-2834</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-low/60 backdrop-blur-xl border border-outline-variant/20 rounded-xl p-6 flex flex-col items-center relative overflow-hidden group hover:border-primary/40 transition-colors">
+<div class="absolute top-4 right-4 flex items-center gap-2 opacity-60">
+<span class="text-caption font-caption text-on-surface-variant">Unavailable</span>
+<div class="w-9 h-5 bg-surface-container-highest rounded-full relative cursor-pointer border border-outline-variant/30">
+<div class="w-4 h-4 bg-on-surface-variant rounded-full absolute left-0.5 top-0.5"></div>
+</div>
+</div>
+<img alt="Doctor avatar" class="w-20 h-20 rounded-full object-cover border-2 border-surface mb-4 mt-2" data-alt="A male doctor of middle eastern descent with a neatly trimmed beard, wearing a white coat and a stethoscope around his neck. He is positioned in a softly lit consultation room with dark structural elements. The aesthetic is clean, trustworthy, and relies on deep blacks contrasting with pristine whites. The lighting casts gentle shadows, emphasizing his authoritative yet approachable demeanor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC30MJ_UsvfT42VXzdgHvfrmD81y4wOq2pikg1lU80lT2YjGpLUdeAZG2IeTN9Ctbnu8XBXTy5SZ133oWMUWpyA3nID5HORiyJbQL762SwoDBBMSIciDZkUycgHymOLO86OsF8XW_QXu7OiDRUhFaXTwsTK5UaCwcWXdzoJID2eISSwVirlOJ9_Z_aMquHEoXT2W-vwLH24MjZC3JgfQcf7szTAKC-7SStO9RJLhHTQbWtXPvsShldUChOgkcUw0R3PLPpHDFZkxSVg"/>
+<h3 class="text-title-lg font-title-lg text-white mb-1">Dr. Amir Rahman</h3>
+<div class="bg-tertiary-container/10 text-tertiary px-3 py-1 rounded-full text-caption font-label-md mb-4 border border-tertiary/20">Neurology</div>
+<div class="w-full flex flex-col gap-2 mt-2">
+<div class="flex items-center gap-3 text-on-surface-variant text-body-md font-body-md bg-surface-container-highest/30 p-2 rounded-lg">
+<span class="material-symbols-outlined text-[16px]" data-icon="mail">mail</span>
+<span class="truncate">a.rahman@lumina.med</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant text-body-md font-body-md bg-surface-container-highest/30 p-2 rounded-lg">
+<span class="material-symbols-outlined text-[16px]" data-icon="call">call</span>
+<span>+1 (555) 019-8821</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Modal Overlay (Add Doctor) -->
+<div id="add-doctor-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm px-4 hidden">
+<div class="bg-surface-container border border-outline-variant/30 rounded-xl w-full max-w-lg shadow-[0_0_40px_rgba(0,0,0,0.5)] relative overflow-hidden">
+<!-- Header -->
+<div class="p-6 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-high/50">
+<h3 class="text-title-lg font-title-lg text-white">Add New Doctor</h3>
+<button id="close-modal-btn" class="text-on-surface-variant hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<!-- Body -->
+<div class="p-6 space-y-6">
+<!-- Floating Label Input -->
+<div class="relative">
+<input class="block px-4 pb-2.5 pt-6 w-full text-body-md font-body-md text-on-surface bg-surface-container-highest rounded-lg border border-outline-variant appearance-none focus:outline-none focus:ring-0 focus:border-primary peer transition-colors" id="doc_name" placeholder=" " type="text"/>
+<label class="absolute text-label-md font-label-md text-on-surface-variant duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3" for="doc_name">Full Name</label>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="relative">
+<select class="block px-4 pb-2.5 pt-6 w-full text-body-md font-body-md text-on-surface bg-surface-container-highest rounded-lg border border-outline-variant appearance-none focus:outline-none focus:ring-0 focus:border-primary peer transition-colors" id="doc_spec">
+<option disabled="" selected="" value=""></option>
+<option>Cardiology</option>
+<option>Orthopedics</option>
+<option>Neurology</option>
+<option>General Medicine</option>
+</select>
+<label class="absolute text-label-md font-label-md text-on-surface-variant duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3" for="doc_spec">Specialization</label>
+<span class="material-symbols-outlined absolute right-4 top-4 text-on-surface-variant pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+<div class="relative">
+<input class="block px-4 pb-2.5 pt-6 w-full text-body-md font-body-md text-on-surface bg-surface-container-highest rounded-lg border border-outline-variant appearance-none focus:outline-none focus:ring-0 focus:border-primary peer transition-colors" id="doc_phone" placeholder=" " type="tel"/>
+<label class="absolute text-label-md font-label-md text-on-surface-variant duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3" for="doc_phone">Phone Number</label>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="p-6 border-t border-outline-variant/20 flex justify-end gap-3 bg-surface-container-low/50">
+<button id="cancel-modal-btn" class="px-6 py-2 rounded-lg text-label-md font-label-md text-primary border border-primary/50 hover:bg-primary/10 transition-colors">Cancel</button>
+<button id="save-doctor-btn" class="px-6 py-2 rounded-lg text-label-md font-label-md bg-primary text-on-primary hover:bg-primary-fixed transition-colors shadow-[0_0_15px_rgba(68,229,204,0.2)]">Save Profile</button>
+</div>
+</div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const modal = document.getElementById('add-doctor-modal');
+        const addBtn = document.getElementById('add-doctor-btn');
+        const closeBtn = document.getElementById('close-modal-btn');
+        const cancelBtn = document.getElementById('cancel-modal-btn');
+        const saveBtn = document.getElementById('save-doctor-btn');
+        const grid = document.getElementById('doctor-grid');
+
+        const toggleModal = (show) => {
+            if (show) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        };
+
+        addBtn.addEventListener('click', () => toggleModal(true));
+        closeBtn.addEventListener('click', () => toggleModal(false));
+        cancelBtn.addEventListener('click', () => toggleModal(false));
+
+        const renderDoctor = (doc) => {
+            const card = document.createElement('div');
+            card.className = 'bg-surface-container-low/60 backdrop-blur-xl border border-outline-variant/20 rounded-xl p-6 flex flex-col items-center relative overflow-hidden group hover:border-primary/40 transition-colors';
+            card.innerHTML = `
+                <div class="absolute top-4 right-4 flex items-center gap-2">
+                    <span class="text-caption font-caption ${doc.availability_status === 'Available' ? 'text-primary' : 'text-error'}">${doc.availability_status}</span>
+                </div>
+                <div class="absolute top-4 left-4 flex items-center gap-1">
+                    <button onclick="window.editDoctor(${doc.doctor_id})" class="text-on-surface-variant hover:text-primary transition-colors p-1 rounded bg-surface-container-highest/50 hover:bg-surface-container">
+                        <span class="material-symbols-outlined text-[16px]">edit</span>
+                    </button>
+                    <button onclick="window.deleteDoctor(${doc.doctor_id})" class="text-on-surface-variant hover:text-error transition-colors p-1 rounded bg-surface-container-highest/50 hover:bg-surface-container">
+                        <span class="material-symbols-outlined text-[16px]">delete</span>
+                    </button>
+                </div>
+                <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4 mt-2 border-2 border-primary/20">
+                    <span class="material-symbols-outlined text-4xl">person</span>
+                </div>
+                <h3 class="text-title-lg font-title-lg text-white mb-1">${doc.full_name}</h3>
+                <div class="bg-primary/10 text-primary-fixed px-3 py-1 rounded-full text-caption font-label-md mb-4 border border-primary/20">${doc.specialization}</div>
+                <div class="w-full flex flex-col gap-2 mt-2">
+                    <div class="flex items-center gap-3 text-on-surface-variant text-body-md font-body-md bg-surface-container-highest/30 p-2 rounded-lg">
+                        <span class="material-symbols-outlined text-[16px]">mail</span>
+                        <span class="truncate">${doc.email || (doc.full_name.toLowerCase().replace(' ', '.') + '@lumina.med')}</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-on-surface-variant text-body-md font-body-md bg-surface-container-highest/30 p-2 rounded-lg">
+                        <span class="material-symbols-outlined text-[16px]">call</span>
+                        <span>${doc.phone}</span>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        };
+
+        let currentDoctorEditId = null;
+
+        window.deleteDoctor = async (id) => {
+            if(confirm('Are you sure you want to delete this doctor?')) {
+                try {
+                    const response = await fetch(`/api/doctors/${id}`, { method: 'DELETE' });
+                    if(response.ok) {
+                        alert('Doctor deleted successfully');
+                        loadDoctors();
+                    } else {
+                        alert('Error deleting doctor');
+                    }
+                } catch(e) {
+                    console.error(e);
+                }
+            }
+        };
+
+        window.editDoctor = async (id) => {
+            try {
+                const response = await fetch('/api/doctors');
+                const doctors = await response.json();
+                const doc = doctors.find(d => d.doctor_id === id);
+                if (doc) {
+                    document.getElementById('doc_name').value = doc.full_name;
+                    document.getElementById('doc_spec').value = doc.specialization;
+                    document.getElementById('doc_phone').value = doc.phone || '';
+                    currentDoctorEditId = id;
+                    document.querySelector('#add-doctor-modal h3').textContent = 'Edit Doctor';
+                    document.getElementById('save-doctor-btn').textContent = 'Update Profile';
+                    toggleModal(true);
+                }
+            } catch(e) {
+                console.error(e);
+            }
+        };
+
+        const loadDoctors = async () => {
+            try {
+                const response = await fetch('/api/doctors');
+                if (!response.ok) throw new Error('Failed to fetch doctors');
+                const doctors = await response.json();
+                grid.innerHTML = ''; // Clear demo cards
+                doctors.forEach(renderDoctor);
+            } catch (error) {
+                console.error('Error loading doctors:', error);
+            }
+        };
+
+        addBtn.addEventListener('click', () => {
+            currentDoctorEditId = null;
+            document.getElementById('doc_name').value = '';
+            document.getElementById('doc_spec').value = '';
+            document.getElementById('doc_phone').value = '';
+            document.querySelector('#add-doctor-modal h3').textContent = 'Add New Doctor';
+            document.getElementById('save-doctor-btn').textContent = 'Save Profile';
+            toggleModal(true);
+        });
+
+        saveBtn.addEventListener('click', async () => {
+            const full_name = document.getElementById('doc_name').value;
+            const specialization = document.getElementById('doc_spec').value;
+            const phone = document.getElementById('doc_phone').value;
+
+            if (!full_name || !specialization || !phone) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            const docData = {
+                doctor_id: currentDoctorEditId || 0,
+                full_name,
+                specialization,
+                phone,
+                email: full_name.toLowerCase().replace(' ', '.') + '@lumina.med',
+                availability_status: 'Available'
+            };
+
+            try {
+                const url = currentDoctorEditId ? `/api/doctors/${currentDoctorEditId}` : '/api/doctors';
+                const method = currentDoctorEditId ? 'PUT' : 'POST';
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(docData)
+                });
+
+                if (response.ok) {
+                    toggleModal(false);
+                    loadDoctors();
+                    alert(method === 'PUT' ? 'Doctor updated successfully!' : 'Doctor added successfully!');
+                } else {
+                    alert('Error saving doctor to database');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+
+        // Initial load
+        loadDoctors();
+    });
+</script>
+</body></html>

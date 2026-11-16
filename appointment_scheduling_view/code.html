@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Appointments - Lumina Medical</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#191c1e",
+                        "surface-container-high": "#272a2c",
+                        "on-error-container": "#ffdad6",
+                        "outline": "#85948f",
+                        "on-surface-variant": "#bacac5",
+                        "surface-container-highest": "#323537",
+                        "tertiary-fixed-dim": "#ffb955",
+                        "surface-dim": "#101415",
+                        "on-primary-container": "#004f44",
+                        "on-secondary-fixed": "#0f1c2c",
+                        "secondary-fixed-dim": "#bac7dd",
+                        "surface-container": "#1d2022",
+                        "surface-tint": "#38ddc4",
+                        "primary": "#44e5cc",
+                        "secondary-fixed": "#d6e3fa",
+                        "on-primary-fixed-variant": "#005046",
+                        "on-tertiary-container": "#613e00",
+                        "tertiary-fixed": "#ffddb4",
+                        "surface-bright": "#363a3b",
+                        "tertiary-container": "#f1a31f",
+                        "inverse-on-surface": "#2d3133",
+                        "on-secondary-container": "#a8b6cb",
+                        "secondary": "#bac7dd",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed": "#291800",
+                        "on-tertiary-fixed-variant": "#633f00",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#0b0f10",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#3a485a",
+                        "secondary-container": "#3a485a",
+                        "outline-variant": "#3b4a46",
+                        "on-background": "#e0e3e5",
+                        "primary-fixed": "#5ffae0",
+                        "on-secondary": "#243142",
+                        "background": "#101415",
+                        "primary-fixed-dim": "#38ddc4",
+                        "on-tertiary": "#452b00",
+                        "primary-container": "#00c9b1",
+                        "surface": "#101415",
+                        "on-surface": "#e0e3e5",
+                        "tertiary": "#ffc474",
+                        "on-primary": "#003730",
+                        "inverse-primary": "#006b5d",
+                        "inverse-surface": "#e0e3e5",
+                        "on-primary-fixed": "#00201b",
+                        "surface-variant": "#323537"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "1.5rem",
+                        "unit": "4px",
+                        "section-gap": "2.5rem",
+                        "sidebar-width": "280px",
+                        "stack-gap": "1rem",
+                        "container-padding": "2rem"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Playfair Display"],
+                        "title-lg": ["DM Sans"],
+                        "headline-lg": ["Playfair Display"],
+                        "body-lg": ["DM Sans"],
+                        "body-md": ["DM Sans"],
+                        "caption": ["DM Sans"],
+                        "label-md": ["DM Sans"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "caption": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-hidden">
+<!-- TopNavBar -->
+<nav class="docked full-width top-0 sticky z-50 bg-white/90 dark:bg-surface-container-high/90 backdrop-blur-xl border-b border-white/20 dark:border-outline-variant/20 shadow-sm flex justify-between items-center w-full px-gutter h-16">
+<div class="flex items-center gap-4">
+<!-- Mobile Menu Button -->
+<button class="md:hidden p-2 text-on-surface-variant hover:bg-primary/10 transition-colors rounded-full scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="text-title-lg font-title-lg font-bold text-primary dark:text-primary-fixed">Lumina Medical</span>
+</div>
+<div class="hidden md:flex items-center bg-surface-container rounded-full px-4 py-2 border border-outline-variant/30 w-96">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md font-body-md w-full placeholder-on-surface-variant text-on-background p-0" placeholder="Search patients, doctors, or ID..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-primary/10 transition-colors rounded-full scale-95 active:scale-90 transition-transform relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-primary/10 transition-colors rounded-full scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-2"></div>
+<button class="flex items-center gap-2 hover:bg-primary/10 transition-colors px-3 py-1.5 rounded-full scale-95 active:scale-90 transition-transform">
+<img alt="Chief Medical Officer Profile" class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A professional headshot of a mature male medical officer in a clean, modern clinical setting. He wears a white coat over blue scrubs, exuding calm authority and expertise. The lighting is bright and even, casting soft shadows that highlight his experienced features. The overall tone is reassuring, reflecting the high-stakes, technologically advanced nature of a premium medical environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzxpcEjbFQnyGPn4QPLYWP18OO_AYJjIveeLHPjP6q4t_6WPN8e4pk38WUicxrQyUGydLP6uiw1byP0FogAKcLA_nmjzu3iEcISgRShu3C7aIExvvfXLzB7SC7cezfwu9wS9_9dk4RJvXnEL4Ewy2sReo2GfyPmoGzgKf8YG7KbiF8I0UDVUVtQ8fHBEjRa5YjMabb-Tjlemb5Tvo_YXiXwYSteR2b7b5bSLEvBBGNiWJSHrudGBhYKj2z1As2LKFqhFTkUSrl9kkc"/>
+</button>
+</div>
+</nav>
+<div class="flex h-[calc(100vh-64px)]">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-full py-6 w-sidebar-width bg-surface-container-low dark:bg-surface-container-low border-r border-white/10 dark:border-outline-variant/10 flat no shadows flex-shrink-0">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_hospital</span>
+</div>
+<div>
+<h2 class="text-title-lg font-title-lg font-bold text-white">Lumina Health</h2>
+<p class="text-caption font-caption text-on-surface-variant">Admin Portal</p>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto custom-scrollbar px-2">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg text-label-md font-label-md" href="/static/clinical_reporting_dashboard/code.html">
+<span class="material-symbols-outlined">dashboard</span>
+                            Dashboard
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg text-label-md font-label-md" href="/static/patient_management/code.html">
+<span class="material-symbols-outlined">patient_list</span>
+                            Patients
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg text-label-md font-label-md" href="/static/doctor_directory_management/code.html">
+<span class="material-symbols-outlined">medical_services</span>
+                            Doctors
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-primary bg-primary/10 border-l-4 border-primary px-4 py-3 rounded-r-lg text-label-md font-label-md transition-all duration-200 ease-in-out" href="/static/appointment_scheduling_view/code.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">event_note</span>
+                            Appointments
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg text-label-md font-label-md" href="/static/patient_electronic_health_records/code.html">
+<span class="material-symbols-outlined">description</span>
+                            Records
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg text-label-md font-label-md" href="/static/billing_insurance_management/code.html">
+<span class="material-symbols-outlined">payments</span>
+                            Billing
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg text-label-md font-label-md" href="/static/pharmacy_stock_inventory/code.html">
+<span class="material-symbols-outlined">medication</span>
+                            Pharmacy
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg text-label-md font-label-md" href="/static/laboratory_services_results/code.html">
+<span class="material-symbols-outlined">biotech</span>
+                            Laboratory
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg text-label-md font-label-md" href="/static/facility_bed_management/code.html">
+<span class="material-symbols-outlined">bed</span>
+                            Rooms
+                        </a>
+</li>
+</ul>
+</nav>
+<div class="px-2 mt-auto pt-4 border-t border-white/10">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined">help</span>
+                            Support
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-white/60 hover:text-white px-4 py-3 transition-all hover:bg-white/5 rounded-lg text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined">settings</span>
+                            Settings
+                        </a>
+</li>
+</ul>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto custom-scrollbar p-container-padding bg-background relative">
+<header class="mb-section-gap flex justify-between items-end">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-2">Appointments &amp; Scheduling</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Manage doctor schedules, book new patients, and review upcoming consultations.</p>
+</div>
+<div class="flex gap-4">
+<button class="bg-transparent border border-primary text-primary hover:bg-primary/10 transition-colors px-4 py-2 rounded-lg text-label-md font-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">print</span>
+                        Print Schedule
+                    </button>
+<button class="bg-primary text-on-primary hover:bg-primary-fixed transition-colors px-6 py-2 rounded-lg text-label-md font-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                        New Booking
+                    </button>
+</div>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Calendar & Booking Panel -->
+<div class="lg:col-span-8 flex flex-col gap-gutter">
+<!-- Booking Quick Panel (Glassmorphism Bento) -->
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden">
+<!-- Decorative glow -->
+<div class="absolute -top-20 -right-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<h2 class="text-title-lg font-title-lg text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">search</span>
+                            Quick Book
+                        </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="relative group">
+<label class="absolute text-caption font-caption text-primary -top-2 left-3 bg-surface-container-high px-1 transition-all">Patient</label>
+<div class="flex items-center border border-outline-variant rounded-lg bg-surface-container-low px-3 py-2 group-focus-within:border-primary group-focus-within:ring-1 group-focus-within:ring-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2">person</span>
+<select id="apptPatient" class="bg-transparent border-none focus:ring-0 text-body-md font-body-md w-full text-on-background p-0 appearance-none">
+    <option class="bg-surface-container" value="">Select Patient</option>
+</select>
+</div>
+</div>
+<div class="relative group">
+<label class="absolute text-caption font-caption text-primary -top-2 left-3 bg-surface-container-high px-1 transition-all">Doctor</label>
+<div class="flex items-center border border-outline-variant rounded-lg bg-surface-container-low px-3 py-2 group-focus-within:border-primary group-focus-within:ring-1 group-focus-within:ring-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2">stethoscope</span>
+<select id="apptDoctor" class="bg-transparent border-none focus:ring-0 text-body-md font-body-md w-full text-on-background p-0 appearance-none">
+<option class="bg-surface-container" value="">Select Doctor</option>
+</select>
+</div>
+</div>
+<div class="relative group">
+<label class="absolute text-caption font-caption text-primary -top-2 left-3 bg-surface-container-high px-1 transition-all">Date</label>
+<div class="flex items-center border border-outline-variant rounded-lg bg-surface-container-low px-3 py-2 group-focus-within:border-primary group-focus-within:ring-1 group-focus-within:ring-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2">calendar_today</span>
+<input id="apptDate" class="bg-transparent border-none focus:ring-0 text-body-md font-body-md w-full text-on-background p-0 [color-scheme:dark]" type="date"/>
+</div>
+</div>
+<div class="relative group">
+<label class="absolute text-caption font-caption text-primary -top-2 left-3 bg-surface-container-high px-1 transition-all">Time</label>
+<div class="flex items-center border border-outline-variant rounded-lg bg-surface-container-low px-3 py-2 group-focus-within:border-primary group-focus-within:ring-1 group-focus-within:ring-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2">schedule</span>
+<input id="apptTime" class="bg-transparent border-none focus:ring-0 text-body-md font-body-md w-full text-on-background p-0 [color-scheme:dark]" type="time"/>
+</div>
+</div>
+<div class="relative group md:col-span-2">
+<label class="absolute text-caption font-caption text-primary -top-2 left-3 bg-surface-container-high px-1 transition-all">Reason for Visit</label>
+<div class="flex items-center border border-outline-variant rounded-lg bg-surface-container-low px-3 py-2 group-focus-within:border-primary group-focus-within:ring-1 group-focus-within:ring-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2">notes</span>
+<input id="apptReason" class="bg-transparent border-none focus:ring-0 text-body-md font-body-md w-full text-on-background p-0 placeholder-on-surface-variant/50" placeholder="e.g. Regular checkup, chest pain" type="text"/>
+</div>
+</div>
+</div>
+<div class="mt-6 flex justify-end">
+<button id="bookApptBtn" class="bg-primary text-on-primary hover:bg-primary-fixed transition-colors px-6 py-2 rounded-lg text-label-md font-label-md shadow-[0_0_12px_rgba(68,229,204,0.3)]">
+                                Book Appointment
+                            </button>
+</div>
+</div>
+<!-- Weekly Calendar View -->
+<div class="glass-panel rounded-xl flex flex-col h-[600px]">
+<div class="p-4 border-b border-outline-variant/30 flex justify-between items-center bg-surface-container-low/50 rounded-t-xl">
+<div class="flex items-center gap-4">
+<button class="p-1 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">chevron_left</span></button>
+<h3 class="text-title-lg font-title-lg text-on-surface">Oct 24 - 30, 2023</h3>
+<button class="p-1 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+<div class="flex bg-surface-container rounded-lg p-1">
+<button class="px-3 py-1 text-label-md font-label-md text-on-surface-variant rounded-md">Day</button>
+<button class="px-3 py-1 text-label-md font-label-md bg-surface-container-highest text-primary shadow-sm rounded-md">Week</button>
+<button class="px-3 py-1 text-label-md font-label-md text-on-surface-variant rounded-md">Month</button>
+</div>
+</div>
+<div class="flex-1 overflow-auto custom-scrollbar relative">
+<!-- Calendar Grid Header -->
+<div class="grid grid-cols-8 sticky top-0 z-10 bg-surface-container-highest/90 backdrop-blur-md border-b border-outline-variant/30 text-center">
+<div class="p-2 border-r border-outline-variant/30">
+<span class="text-caption font-caption text-on-surface-variant">Time</span>
+</div>
+<div class="p-2 border-r border-outline-variant/30">
+<div class="text-caption font-caption text-on-surface-variant uppercase">Mon</div>
+<div class="text-body-lg font-body-lg text-on-surface font-bold">24</div>
+</div>
+<div class="p-2 border-r border-outline-variant/30">
+<div class="text-caption font-caption text-on-surface-variant uppercase">Tue</div>
+<div class="text-body-lg font-body-lg text-on-surface font-bold">25</div>
+</div>
+<div class="p-2 border-r border-outline-variant/30 bg-primary/10 border-b-2 border-b-primary">
+<div class="text-caption font-caption text-primary uppercase">Wed</div>
+<div class="text-body-lg font-body-lg text-primary font-bold">26</div>
+</div>
+<div class="p-2 border-r border-outline-variant/30">
+<div class="text-caption font-caption text-on-surface-variant uppercase">Thu</div>
+<div class="text-body-lg font-body-lg text-on-surface font-bold">27</div>
+</div>
+<div class="p-2 border-r border-outline-variant/30">
+<div class="text-caption font-caption text-on-surface-variant uppercase">Fri</div>
+<div class="text-body-lg font-body-lg text-on-surface font-bold">28</div>
+</div>
+<div class="p-2 border-r border-outline-variant/30 opacity-50">
+<div class="text-caption font-caption text-on-surface-variant uppercase">Sat</div>
+<div class="text-body-lg font-body-lg text-on-surface font-bold">29</div>
+</div>
+<div class="p-2 opacity-50">
+<div class="text-caption font-caption text-on-surface-variant uppercase">Sun</div>
+<div class="text-body-lg font-body-lg text-on-surface font-bold">30</div>
+</div>
+</div>
+<!-- Calendar Body Grid -->
+<div class="relative bg-surface-container-low/20">
+<!-- Horizontal Time Lines -->
+<div class="absolute inset-0 pointer-events-none flex flex-col">
+<div class="h-16 border-b border-outline-variant/10 w-full"></div>
+<div class="h-16 border-b border-outline-variant/10 w-full"></div>
+<div class="h-16 border-b border-outline-variant/10 w-full"></div>
+<div class="h-16 border-b border-outline-variant/10 w-full"></div>
+<div class="h-16 border-b border-outline-variant/10 w-full"></div>
+<div class="h-16 border-b border-outline-variant/10 w-full"></div>
+<div class="h-16 border-b border-outline-variant/10 w-full"></div>
+<div class="h-16 border-b border-outline-variant/10 w-full"></div>
+</div>
+<div class="grid grid-cols-8 relative min-h-[512px]">
+<!-- Time Column -->
+<div class="border-r border-outline-variant/30 flex flex-col text-center text-caption font-caption text-on-surface-variant">
+<div class="h-16 flex items-start justify-center pt-2">08:00</div>
+<div class="h-16 flex items-start justify-center pt-2">09:00</div>
+<div class="h-16 flex items-start justify-center pt-2">10:00</div>
+<div class="h-16 flex items-start justify-center pt-2">11:00</div>
+<div class="h-16 flex items-start justify-center pt-2">12:00</div>
+<div class="h-16 flex items-start justify-center pt-2">13:00</div>
+<div class="h-16 flex items-start justify-center pt-2">14:00</div>
+<div class="h-16 flex items-start justify-center pt-2">15:00</div>
+</div>
+<!-- Day Columns -->
+<div class="border-r border-outline-variant/30 relative"></div>
+<div class="border-r border-outline-variant/30 relative"></div>
+<!-- Current Day (Wed) -->
+<div class="border-r border-outline-variant/30 relative bg-primary/5">
+<!-- Current Time Line Indicator -->
+<div class="absolute top-[140px] left-0 w-full h-[2px] bg-error z-20 flex items-center">
+<div class="w-2 h-2 rounded-full bg-error -ml-1"></div>
+</div>
+<!-- Appointment Block -->
+<div class="absolute top-[64px] left-1 right-1 h-[96px] bg-surface-container-high border-l-4 border-primary rounded shadow-sm p-2 overflow-hidden hover:bg-surface-container-highest transition-colors cursor-pointer group">
+<div class="text-label-md font-label-md text-on-surface truncate group-hover:text-primary transition-colors">Dr. Sarah Smith</div>
+<div class="text-caption font-caption text-on-surface-variant truncate">Cardiology Consult</div>
+<div class="text-caption font-caption text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]">person</span> J. Doe
+                                            </div>
+</div>
+<!-- Another Appointment -->
+<div class="absolute top-[256px] left-1 right-1 h-[48px] bg-surface-container-high border-l-4 border-tertiary rounded shadow-sm p-2 overflow-hidden hover:bg-surface-container-highest transition-colors cursor-pointer">
+<div class="text-label-md font-label-md text-on-surface truncate">Dr. A. Chen</div>
+<div class="text-caption font-caption text-on-surface-variant truncate">Follow-up</div>
+</div>
+</div>
+<div class="border-r border-outline-variant/30 relative"></div>
+<div class="border-r border-outline-variant/30 relative"></div>
+<div class="border-r border-outline-variant/30 relative opacity-50 bg-stripes"></div>
+<div class="relative opacity-50 bg-stripes"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: List of Appointments -->
+<div class="lg:col-span-4 flex flex-col gap-gutter">
+<div class="flex justify-between items-center mb-2">
+<h3 class="text-title-lg font-title-lg text-on-surface">Today's Agenda</h3>
+<button class="text-primary text-label-md font-label-md hover:underline">View All</button>
+</div>
+<div id="appointmentsList" class="flex flex-col gap-4 overflow-y-auto custom-scrollbar pr-2 h-[calc(100vh-280px)]">
+</div>
+
+</div>
+</div>
+</main>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const appointmentsList = document.getElementById('appointmentsList');
+        const apptPatient = document.getElementById('apptPatient');
+        const apptDoctor = document.getElementById('apptDoctor');
+        const apptDate = document.getElementById('apptDate');
+        const apptTime = document.getElementById('apptTime');
+        const apptReason = document.getElementById('apptReason');
+        const bookApptBtn = document.getElementById('bookApptBtn');
+
+        const renderAppointmentCard = (appt) => {
+            const card = document.createElement('div');
+            const status = appt.status || 'Scheduled';
+            const statusColor = status === 'Confirmed' ? 'primary' : (status === 'Rescheduled' ? 'tertiary' : 'primary');
+            card.className = `glass-panel rounded-xl p-4 border-l-[3px] border-l-${statusColor} hover:bg-surface-container-high/50 transition-colors`;
+            
+            card.innerHTML = `
+                <div class="flex justify-between items-start mb-3">
+                    <div>
+                        <h4 class="text-body-lg font-body-lg font-bold text-on-surface">${appt.patient_name}</h4>
+                        <p class="text-caption font-caption text-on-surface-variant flex items-center gap-1 mt-1">
+                            <span class="material-symbols-outlined text-[14px]">badge</span> ID: PT-${String(appt.patient_id).padStart(5, '0')}
+                        </p>
+                    </div>
+                    <span class="bg-${statusColor}/10 text-${statusColor} border border-${statusColor}/20 px-2 py-0.5 rounded text-caption font-label-md uppercase">${status}</span>
+                </div>
+                <div class="bg-surface-container-low rounded p-3 mb-4 grid grid-cols-2 gap-2">
+                    <div>
+                        <p class="text-caption font-caption text-on-surface-variant">Time</p>
+                        <p class="text-body-md font-body-md text-on-surface flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-primary">schedule</span> ${appt.appointment_time}</p>
+                    </div>
+                    <div>
+                        <p class="text-caption font-caption text-on-surface-variant">Doctor</p>
+                        <p class="text-body-md font-body-md text-on-surface flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-primary">stethoscope</span> ${appt.doctor_name}</p>
+                    </div>
+                    <div class="col-span-2">
+                        <p class="text-caption font-caption text-on-surface-variant">Reason</p>
+                        <p class="text-body-md font-body-md text-on-surface">${appt.reason || 'General Consultation'}</p>
+                    </div>
+                </div>
+            `;
+            appointmentsList.appendChild(card);
+        };
+
+        const loadAppointments = async () => {
+            try {
+                const response = await fetch('/api/appointments');
+                if (!response.ok) throw new Error('Failed to fetch appointments');
+                const appts = await response.json();
+                
+                appointmentsList.innerHTML = '';
+                if (appts.length === 0) {
+                    appointmentsList.innerHTML = '<p class="text-on-surface-variant text-center mt-10">No appointments scheduled for today.</p>';
+                } else {
+                    appts.forEach(renderAppointmentCard);
+                }
+            } catch (error) {
+                console.error('Error loading appointments:', error);
+                appointmentsList.innerHTML = '<p class="text-error text-center mt-10">Error loading appointments.</p>';
+            }
+        };
+
+        const loadDropdowns = async () => {
+            try {
+                const [patientsRes, doctorsRes] = await Promise.all([
+                    fetch('/api/patients'),
+                    fetch('/api/doctors')
+                ]);
+
+                if (patientsRes.ok) {
+                    const patients = await patientsRes.json();
+                    patients.forEach(p => {
+                        const opt = document.createElement('option');
+                        opt.value = p.patient_id;
+                        opt.textContent = p.full_name;
+                        opt.className = 'bg-surface-container';
+                        apptPatient.appendChild(opt);
+                    });
+                }
+
+                if (doctorsRes.ok) {
+                    const doctors = await doctorsRes.json();
+                    doctors.forEach(d => {
+                        const opt = document.createElement('option');
+                        opt.value = d.doctor_id;
+                        opt.textContent = `Dr. ${d.full_name} (${d.specialization})`;
+                        opt.className = 'bg-surface-container';
+                        apptDoctor.appendChild(opt);
+                    });
+                }
+            } catch (err) {
+                console.error('Error loading dropdowns:', err);
+            }
+        };
+
+        bookApptBtn.addEventListener('click', async () => {
+            const patientId = apptPatient.value;
+            const doctorId = apptDoctor.value;
+            const date = apptDate.value;
+            const time = apptTime.value;
+            const reason = apptReason.value;
+
+            if (!patientId || !doctorId || !date || !time) {
+                alert('Please fill in all required fields (Patient, Doctor, Date, Time)');
+                return;
+            }
+
+            const payload = {
+                appointment_id: 0,
+                patient_id: parseInt(patientId),
+                doctor_id: parseInt(doctorId),
+                appointment_date: date,
+                appointment_time: time,
+                status: 'Scheduled',
+                reason: reason
+            };
+
+            try {
+                const response = await fetch('/api/appointments', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    alert('Appointment booked successfully!');
+                    loadAppointments();
+                    // Reset fields
+                    apptPatient.value = '';
+                    apptDoctor.value = '';
+                    apptDate.value = '';
+                    apptTime.value = '';
+                    apptReason.value = '';
+                } else {
+                    const err = await response.json();
+                    alert('Error: ' + (err.detail || 'Failed to book appointment'));
+                }
+            } catch (err) {
+                console.error('Error booking appointment:', err);
+                alert('Connection error. Please try again.');
+            }
+        });
+
+        loadAppointments();
+        loadDropdowns();
+    });
+</script>
+</body></html>
